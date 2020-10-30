@@ -132,16 +132,27 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/fm2"
         android:layout_width="409dp"
         android:layout_marginTop="29dp"
-        android:layout_height="156dp"
-        android:text="FUNCIONA"
+        android:layout_height="400dp"
         android:textSize="20dp"
+        android:padding="20dp"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         tools:layout_editor_absoluteX="1dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints">
+
+        <ListView
+            android:id="@+id/lstCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fm2" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
