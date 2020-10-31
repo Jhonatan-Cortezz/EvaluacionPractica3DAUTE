@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayoutCompat resultado;
     private HomeViewModel homeViewModel;
     private ListView lst;
+    private static ConstraintLayout frameLayout1;
     ArrayList<String> lista = null;
     ArrayList<DtoCategoria> listaCategoria;
 
@@ -70,7 +71,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final ConstraintLayout frameLayout1 = root.findViewById(R.id.constraintLayout);
+        frameLayout1 = root.findViewById(R.id.constraintLayout);
         final LinearLayoutCompat frameLayout2 = root.findViewById(R.id.fm2);
         btnNew = root.findViewById(R.id.btnNuevo);
         edtId = root.findViewById(R.id.edtCategoria);
@@ -169,6 +170,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 } else if (spEstado.getSelectedItemPosition() > 0){
                     //this action save in the BD
                     save_server(getContext(), Integer.parseInt(id), nombre, Integer.parseInt(datoSelect));
+                    frameLayout1.setVisibility(view.GONE);
+                    recibirAllCat();
                 } else {
                     Toast.makeText(getContext(), "Seleccione un estado para la categoria", Toast.LENGTH_SHORT).show();
                 }

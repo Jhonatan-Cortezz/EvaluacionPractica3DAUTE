@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">TablaCategoria</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title">CURD Categoria</string>
+    <string name="title_home">Categorias</string>
+    <string name="title_dashboard">RecyclerView</string>
+    <string name="title_notifications">About</string>
 
     <string-array name="estadoCategorias">
         <item>Seleccione</item>
