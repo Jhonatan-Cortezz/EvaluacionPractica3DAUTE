@@ -1,19 +1,16 @@
-package com.jac.tablacategoria.ui.dashboard;
+package com.jac.tablacategoria.ui.home;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -23,9 +20,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.jac.tablacategoria.MySingleton;
 import com.jac.tablacategoria.R;
 import com.jac.tablacategoria.Setting_VAR;
-import com.jac.tablacategoria.ui.home.AdaptadorProductos;
-import com.jac.tablacategoria.ui.home.DtoCategoria;
-import com.jac.tablacategoria.ui.home.Recyclerviewm;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,28 +27,24 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class DashboardFragment extends Fragment {
+public class Recyclerviewm extends AppCompatActivity {
     ArrayList<String> lista = null;
     ArrayList<DtoCategoria> listaCategoria;
 
     private RecyclerView recyclerView;
     private AdaptadorProductos adaptadorProductos;
 
-    private DashboardViewModel dashboardViewModel;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recyclerviewm);
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
-        recyclerView = root.findViewById(R.id.rvProd);
+        recyclerView = findViewById(R.id.rvProd);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recibirAllCat();
 
-        return root;
+
     }
 
     private void recibirAllCat(){
@@ -80,8 +70,8 @@ public class DashboardFragment extends Fragment {
                         listaCategoria.add(objCategorias);
 
 
-                        //lista.add(listaCategoria.get(i).getIdCategoria() + " - " + listaCategoria.get(i).getNombre());
-                        adaptadorProductos = new AdaptadorProductos(getContext(), listaCategoria);
+                        lista.add(listaCategoria.get(i).getIdCategoria() + " - " + listaCategoria.get(i).getNombre());
+                        adaptadorProductos = new AdaptadorProductos(Recyclerviewm.this, listaCategoria);
 
                         recyclerView.setAdapter(adaptadorProductos);
 
@@ -110,6 +100,6 @@ public class DashboardFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        MySingleton.getInstance(getContext()).addToRequestQueue(request);
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 }
