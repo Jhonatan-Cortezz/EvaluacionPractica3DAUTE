@@ -46,6 +46,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import static android.content.Intent.getIntent;
+import static android.view.View.VISIBLE;
+
 //this class is a Entity for Table categoria
 public class HomeFragment extends Fragment implements View.OnClickListener {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -105,7 +108,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 if (btnNew.isClickable() == true) {
-                    frameLayout1.setVisibility(view.VISIBLE);
+                    frameLayout1.setVisibility(VISIBLE);
                 }
             }
         });
@@ -118,6 +121,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
+
+        //logica para actualizar
+        String senal = "";
+        String codigo = "";
+        String nombre = "";
+        String estado = "";
+
+        try {
+            Intent intent = new Intent();
+            Bundle bundle = intent.getExtras();
+            if (bundle != null){
+                codigo = bundle.getString("codigo");
+                senal = bundle.getString("senal");
+                nombre = bundle.getString("nombre");
+                estado = bundle.getString("estado");
+
+                if (senal.equals("1")){
+                    frameLayout1.setVisibility(VISIBLE);
+                    edtId.setText(codigo);
+                    edtNombre.setText(nombre);
+                    btnSave.setText("ACTUALIZAR");
+                }
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
 
         btnSave = root.findViewById(R.id.btnGuardarCate);
         btnSave.setOnClickListener(this);

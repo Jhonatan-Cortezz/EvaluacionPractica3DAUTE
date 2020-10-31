@@ -17,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.jac.tablacategoria.MainActivity;
 import com.jac.tablacategoria.MySingleton;
 import com.jac.tablacategoria.R;
 import com.jac.tablacategoria.Setting_VAR;
@@ -50,20 +51,30 @@ public class DetalleCategoria extends AppCompatActivity implements View.OnClickL
         tvNombre.setText(noma);
         tvEstado.setText(esta);
 
-        //btnEditarCat.setOnClickListener(this);
+        btnEditarCat.setOnClickListener(this);
         btnBorrarCat.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         String id = tvCodigo.getText().toString();
-        if (btnBorrarCat.isClickable()){
+        if (view.getId() == R.id.btnBorrarCat){
             delete_cate(this, Integer.parseInt(id));
             //Toast.makeText(this, "Hole Borrado", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, HomeFragment.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        } else {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        } else if(view.getId() == R.id.btnEditarCat){
+            //Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            String code = tvCodigo.getText().toString();
+            String name = tvNombre.getText().toString();
+            String estado = tvEstado.getText().toString();
+
+            Intent intent = new Intent(getApplicationContext(), EditarCategoria.class);
+            intent.putExtra("senal", "1");
+            intent.putExtra("codigo", code);
+            intent.putExtra("nombre", name);
+            intent.putExtra("estado", estado);
+            startActivity(intent);
         }
 
         //Intent intent = new Intent(this, HomeFragment.class);
