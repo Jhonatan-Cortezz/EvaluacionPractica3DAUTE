@@ -1,6 +1,8 @@
 package com.jac.tablacategoria.ui.home;
 
-public class DtoCategoria {
+import java.io.Serializable;
+
+public class DtoCategoria implements Serializable {
     private int idCategoria;
     private String nombre;
     private int estado;

@@ -1,6 +1,8 @@
 package com.jac.tablacategoria.ui.home;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +48,7 @@ import java.util.Map;
 
 //this class is a Entity for Table categoria
 public class HomeFragment extends Fragment implements View.OnClickListener {
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     private Button btnNew;
     private Button cancel, btnSave;
@@ -219,6 +222,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, lista);
                         lst.setAdapter(adapter);
+
+                        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                String codigo = "" + listaCategoria.get(i).getIdCategoria();
+                                String nombre = "" + listaCategoria.get(i).getNombre();
+                                String estado = "" + listaCategoria.get(i).getEstado();
+
+                                /*
+                                Bundle envio = new Bundle();
+                                envio.putInt("id", Integer.parseInt(codigo));
+                                envio.putString("nombre", nombre);
+                                envio.putInt("estado", Integer.parseInt(estado));*/
+
+                                Activity activity = new Activity();
+                                Intent intent = new Intent(getActivity(), DetalleCategoria.class);
+                                intent.putExtra("codigo", codigo);
+                                intent.putExtra("nombre", nombre);
+                                intent.putExtra("estado", estado);
+                                startActivity(intent);
+                            }
+                        });
 
                         Log.i("Id Categoria:    ", String.valueOf(objCategorias.getIdCategoria()));
                         Log.i("Nombre:    ", String.valueOf(objCategorias.getNombre()));
